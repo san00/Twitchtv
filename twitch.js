@@ -47,9 +47,9 @@ $(document).ready(function() {
 
                         $("#status").append(
                             //  userLogo[i] +
-                            " " + "<a href =" + info.url + " " + ">" + userLogo +
+                            "<a href =" + info.url + " " + ">" + userLogo +
                             "<br></br>" + info.display_name + "</a>" + "<br></br>" + " "
-                            + " " + info.status + " " + "<br></br>" + " Currently" + " "
+                            + " " + info.status + " " + "<br></br>" + "Currently"
                             + userOnline + " " + "<br></br>" +
                             "_________________________________" + "<br></br>");
                     }
