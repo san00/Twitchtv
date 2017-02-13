@@ -1,57 +1,56 @@
+   $(document).ready(function() {
+       var users = ["ESL_SC2", "freecodecamp", "OgamingSC2", "cretetion", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas","brunofin"];
 
-    var users = [ "ESL_SC2","freecodecamp","OgamingSC2", "cretetion", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas","comster404"];
+       var userName = [];
+       var userLogo = [];
+       var userStatus = [];
+       var userURL = [];
+       var userOnline = [];
+       var message = [];
 
-    var userName =[];
-    var userLogo =[];
-    var userStatus = [];
-    var userURL = [];
-    var userOnline = [];
-    var userStream = [];
-    var userGame = [];
 
-  for(var i = 0; i < users.length; i++) {
-    var apiResult = "https://wind-bow.gomix.me/twitch-api/channels/" + users[i];
+       for (var i = 0; i < users.length; i++) {
+           var apiResult = "https://wind-bow.gomix.me/twitch-api/channels/" + users[i];
 
-    streaming(i);
-  };
+           streaming(i);
+       };
 
- function streaming() {
+       function streaming() {
 
-  var apiStream = "https://wind-bow.gomix.me/twitch-api/streams/" + users[i];
+           var apiStream = "https://wind-bow.gomix.me/twitch-api/streams/" + users[i];
+           var apiUser = "https://wind-bow.gomix.me/twitch-api/users/" + users[i];
 
-    $.ajax({
-        url: apiResult,
-        type: "GET",
-        dataType: "jsonp",
-        success: function(info) {
-            console.log(info);
+           $.ajax({
+               url: apiResult,
+               dataType: "jsonp",
+               success: function(info) {
 
-            userName[i] = info.display_name;
-            userLogo[i] = ("<img src=" + info.logo + ">")
-            userStatus[i] = info.status;
-            userURL[i] = info.url;
+                   userName[i] = info.display_name;
+                   userLogo[i] = ("<img src=" + info.logo + ">")
+                   userStatus[i] = info.status;
+                   userURL[i] = info.url;
 
-              // $("#status").append(userLogo[i] + " " + " " + userName[i] + "<br></br>"+ userStatus[i] + " "  +  "<br></br>" );
+                   $.ajax({
+                       url: apiStream,
+                       dataType: "jsonp",
+                       success: function(data) {
 
-              $.ajax({
-                  url: apiStream,
-                  type: "GET",
-                  dataType: "jsonp",
-                  success: function(data) {
-                    userName[i] = info.display_name;
-                    userLogo[i] = ("<img src=" + info.logo + ">")
-                    userStatus[i] = info.status;
-                    userURL[i] = info.url;
-                      console.log(data);
-                      if (data.stream === null){
-                        userOnline[i] = "Offline";
-                      }
-                        else{
-                        userOnline[i] = "Online";
-                      }
-                        $("#status").append(userLogo[i] + " " + " " + userName[i] + "<br></br>"+ " " +userStatus[i] + " "  + userOnline[i]+ " " + "<br></br>" );
-                    }
-                  });
-            }
-        })
-};
+                           userName[i] = info.display_name;
+                           userLogo[i] = ("<img src=" + info.logo + ">")
+                           userStatus[i] = info.status;
+                           userURL[i] = info.url;
+
+                           if (data.stream === null)
+                               userOnline[i] = "Offline";
+                            else
+                               userOnline[i] = "Online";
+
+                           $("#status").append(userLogo[i] + " " + "<a href =" + userURL[i] + ">"
+                           + info.display_name + "</a>" + "<br></br>" + " " + userStatus[i] + " "
+                           +  "<br></br>" + userOnline[i] + " " + "<br></br>");
+                       }
+                   });
+               }
+           })
+       };
+   });
