@@ -43,8 +43,8 @@
                                userOnline = "Online";
 
                            $("#status").append(
-                               //  userLogo[i] +
-                               " " + "<a href =" + userURL[i] + " " + ">" + userLogo + "<br></br>" +
+                              
+                               "<br></br>" + "<a href =" + userURL[i] + " " + ">" + userLogo + "<br></br>" +
                                userName[i] + "</a>" + "<br></br>" + " " + " " + channelDesc[i] + " " +
                                "<br></br>" + " Currently" + " " + userOnline + " " + "<br></br>" +
                                "_________________________________" + "<br></br>");
