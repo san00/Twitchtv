@@ -1,62 +1,53 @@
    $(document).ready(function() {
-       var users = ["ESL_SC2", "freecodecamp", "OgamingSC2", "cretetion", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+       var twitchUsers = ["ESL_SC2", "freecodecamp", "OgamingSC2", "cretetion", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
 
-      //  var userName = [];
-       var userLogo;
-      //  var userStatus = [];
+       var userName = [];
+       var userLogo = [];
+       var channelDesc = [];
        var userURL = [];
        var userOnline;
-      //  var message = [];
 
-
-       for (var i = 0; i < users.length; i++) {
-           var apiResult = "https://wind-bow.gomix.me/twitch-api/channels/" + users[i];
+       for (var i = 0; i < twitchUsers.length; i++) {
+           var apiResult = "https://wind-bow.gomix.me/twitch-api/channels/" + twitchUsers[i];
 
            streaming(i);
        };
 
        function streaming() {
 
-           var apiStream = "https://wind-bow.gomix.me/twitch-api/streams/" + users[i];
+           var apiStream = "https://wind-bow.gomix.me/twitch-api/streams/" + twitchUsers[i];
 
            $.ajax({
                url: apiResult,
                dataType: "jsonp",
-               success: function(info) {
+               success: function(channel) {
 
-                  //  userName[i] =
-                   info.display_name; // user names
-                  //  userLogo[i] =
-                   ("<img src=" + info.logo + ">") //user logo's
-                  //  userStatus[i] =
-                   info.status;
-                  //  userURL[i] =
-                   info.url;
+                   userName[i] = channel.display_name;
+                   userLogo[i] = ("<img src=" + channel.logo + ">")
+                   channelDesc[i] = channel.status;
+                   userURL[i] = channel.url;
 
                    $.ajax({
                        url: apiStream,
                        dataType: "jsonp",
-                       success: function(data) {
+                       success: function(userStream) {
 
-                          //  userName[i] =
-                           info.display_name;
-                           userLogo = ("<img src=" + info.logo + ">")
+                           userName[i] = channel.display_name;
+                           userLogo = ("<img src=" + channel.logo + ">")
+                           channelDesc[i] = channel.status;
+                           userURL[i] = channel.url;
 
-                          //  userStatus[i] =
-                           info.status;
-                           userURL = info.url;
-
-                           if (data.stream === null)
+                           if (userStream.stream === null)
                                userOnline = "Offline";
-                            else
+                           else
                                userOnline = "Online";
 
                            $("#status").append(
-                            //  userLogo[i] +
-                              " " + "<a href =" + info.url+ " " + ">" + userLogo + "<br></br>"
-                           + info.display_name + "</a>" + "<br></br>" + " " + " "+info.status + " "
-                           +  "<br></br>" + " Currently"+ " "+userOnline + " " + "<br></br>"
-                         + "_________________________________" + "<br></br>");
+                               //  userLogo[i] +
+                               " " + "<a href =" + userURL[i] + " " + ">" + userLogo + "<br></br>" +
+                               userName[i] + "</a>" + "<br></br>" + " " + " " + channelDesc[i] + " " +
+                               "<br></br>" + " Currently" + " " + userOnline + " " + "<br></br>" +
+                               "_________________________________" + "<br></br>");
                        }
                    });
                }
