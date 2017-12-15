@@ -6,7 +6,7 @@ If a Twitch user is currently streaming, I can see additional details about what
 
 Create an app functionally similar to [this](https://codepen.io/freeCodeCamp/full/Myvqmo)
 
-### Live Preview
+## Live Preview
 [View it live here](https://san00.github.io/Twitchtv/)
 
 ## Screenshot
